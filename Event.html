@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timer</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+*{box-sizing:border-box}
+body{background:#0a0a0a;color:#39ff14;font-family:'Press Start 2P',monospace;text-align:center;padding:10px;margin:0}
+.box{border:4px solid #39ff14;box-shadow:0 0 20px #39ff14;padding:15px;max-width:400px;margin:40px auto;background:#000}
+h1{font-size:12px;line-height:1.6;text-shadow:0 0 10px #39ff14;margin-bottom:15px}
+.timer{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.time{border:2px solid #39ff14;padding:10px 2px;font-size:7px}
+.time span{display:block;font-size:18px;margin-top:8px}
+.date{font-size:8px;border:2px solid #39ff14;padding:10px;margin-top:12px}
+</style>
+</head>
+<body>
+<div class="box">
+<h1>Wer Baut mir am schnellsten...?</h1>
+<div class="timer">
+<div class="time">TAGE<span id="tage">00</span></div>
+<div class="time">STD<span id="std">00</span></div>
+<div class="time">MIN<span id="min">00</span></div>
+<div class="time">SEK<span id="sek">00</span></div>
+</div>
+<div class="date">FREITAG, 25.09.2026 - 18:00 UHR</div>
+</div>
+<script>
+const eventDate=new Date("2026-09-25T18:00:00+02:00").getTime();
+function update(){
+ let diff=eventDate-new Date().getTime();
+ if(diff<=0){tage.innerText=std.innerText=min.innerText=sek.innerText="00";return}
+ tage.innerText=String(Math.floor(diff/86400000)).padStart(2,'0');
+ std.innerText=String(Math.floor(diff%86400000/3600000)).padStart(2,'0');
+ min.innerText=String(Math.floor(diff%3600000/60000)).padStart(2,'0');
+ sek.innerText=String(Math.floor(diff%60000/1000)).padStart(2,'0');
+}
+setInterval(update,1000);update();
+</script>
+</body>
+</html>
